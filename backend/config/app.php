@@ -30,6 +30,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'api_mode' => env('APP_API_MODE', 'mock'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
