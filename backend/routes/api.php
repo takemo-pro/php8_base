@@ -15,9 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'prefix' => 'user',
-    'as' => 'user.',
+    'prefix' => 'users',
+    'as' => 'users.',
 ],function(){
-    Route::post('',"UserController@create")->name('store');
+    Route::post('',"UserController@store")->name('store');
     Route::put('{userId}',"UserController@update")->name('update');
+});
+
+Route::group([
+    'prefix' => 'schedules',
+    'as' => 'schedules.',
+//    'middleware' => 'auth:sanctum',
+],function(){
+    Route::get('',"ScheduleController@index")->name('index');
+    Route::post('',"ScheduleController@store")->name('store');
+    Route::put('{scheduleId}',"ScheduleController@update")->name('update');
+    Route::delete('{scheduleId}',"ScheduleController@destroy")->name('destroy');
 });

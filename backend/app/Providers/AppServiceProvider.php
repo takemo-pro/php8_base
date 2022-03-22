@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Services\Api\IScheduleService;
 use App\Http\Services\Api\IUserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,8 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if(config('app.api_mode') === 'concrete'){
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Concrete\UserService::class);
+            $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Concrete\ScheduleService::class);
         }else{
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Mock\UserService::class);
+            $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Mock\ScheduleService::class);
         }
     }
 }

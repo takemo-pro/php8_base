@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\Schedule;
 
-use App\Enums\Gender;
+use App\Enums\TrainingType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
-class CreateUserRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +27,14 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:8|string',
-            'gender' => [
+            'reserve_time' => 'required|date_format:Y-m-d H:i:s|after:today',
+            'training_type' => [
                 'required',
-                'string',
-                new Enum(Gender::class),
+                new Enum(TrainingType::class),
             ],
+            'set_number' => "nullable|integer|numeric",
+            'set_time_sec' => "nullable|integer|numeric",
         ];
     }
 }
+
