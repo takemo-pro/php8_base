@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +38,22 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        //API 例外処理共通化
+        $this->renderable(function(Throwable $e,Request $request){
+            if(!$request->is('api/*')){
+                Log::warning('hogehogehogehogheo');
+                return;
+            }
+
+            if($e instanceof ValidationException){
+                return response()->validationError($e);
+            }
+
+            if(env('app_env') !== 'production'){
+                return response()->debug($e);
+            }
+
+            return response()->error($e);
         });
     }
 }

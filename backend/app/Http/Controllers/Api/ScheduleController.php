@@ -26,7 +26,8 @@ class ScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->scheduleService->indexSchedule($request->query());
+        $body = $this->scheduleService->indexSchedule($request->query());
+        return response()->success($body);
     }
 
     /**
@@ -37,7 +38,8 @@ class ScheduleController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return $this->scheduleService->createSchedule($request->validated());
+        $body = $this->scheduleService->createSchedule($request->validated());
+        return response()->success($body);
     }
 
     /**
@@ -49,7 +51,8 @@ class ScheduleController extends Controller
      */
     public function update(UpdateRequest $request,$scheduleId)
     {
-        return $this->scheduleService->updateSchedule($scheduleId,$request->validated());
+        $body = $this->scheduleService->updateSchedule($scheduleId,$request->validated());
+        return response()->success($body);
     }
 
     /**
@@ -61,5 +64,6 @@ class ScheduleController extends Controller
     public function destroy($scheduleId)
     {
         return $this->scheduleService->deleteSchedule($scheduleId);
+//        return response()->noContent();
     }
 }

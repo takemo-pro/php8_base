@@ -15,20 +15,18 @@ class UserController extends Controller
     public function __construct(IUserService $userService)
     {
         $this->userService = $userService;
-        if(config('app.api_mode') === ApiMode::Concrete){
-            $this->middleware('auth:api')->only('update');
-        }
+        $this->middleware('auth:api')->only('update');
     }
 
     public function store(StoreRequest $request)
     {
         $body = $this->userService->createUser($request->validated());
-        return response()->json($body);
+        return response()->success($body);
     }
 
     public function update(UpdateRequest $request)
     {
         $body = $this->userService->updateUser($request->validated());
-        return response()->json($body);
+        return response()->success($body);
     }
 }

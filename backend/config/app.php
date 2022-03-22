@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //custom
+        App\Providers\ApiResponseServiceProvider::class,
         Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
     ],
 
