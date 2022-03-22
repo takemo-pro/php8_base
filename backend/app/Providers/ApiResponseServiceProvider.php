@@ -33,7 +33,7 @@ class ApiResponseServiceProvider extends ServiceProvider
                 'success'	 => true,
                 'code'		 => $code,
                 'status'	 => Response::$statusTexts[$code],
-                'body'	 => $data,
+                'data'	 => $data,
             ],$code);
         });
 
@@ -43,7 +43,7 @@ class ApiResponseServiceProvider extends ServiceProvider
                 'success'	 => false,
                 'code'		 => Response::HTTP_UNPROCESSABLE_ENTITY,
                 'status'	 => Response::$statusTexts[Response::HTTP_UNPROCESSABLE_ENTITY],
-                'body'	     => [
+                'data'	     => [
                     'errors' => $e->errors()
                 ],
             ],Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -59,7 +59,7 @@ class ApiResponseServiceProvider extends ServiceProvider
                 'success'	 => false,
                 'code'		 => $code,
                 'status'	 => Response::$statusTexts[$code],
-                'body'	     => [
+                'data'	     => [
                     'errors' => [
                         'global' => $message,
                     ]
@@ -74,7 +74,7 @@ class ApiResponseServiceProvider extends ServiceProvider
                 'success'	 => false,
                 'code'		 => $e->getCode(),
                 'status'	 => Response::$statusTexts[$code],
-                'body'	     => [
+                'data'	     => [
                     'errors' => [
                         'global' => $e->getMessage()
                     ],

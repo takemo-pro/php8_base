@@ -63,7 +63,7 @@ class ScheduleController extends Controller
      */
     public function destroy($scheduleId)
     {
-        return $this->scheduleService->deleteSchedule($scheduleId);
-//        return response()->noContent();
+        $this->scheduleService->deleteSchedule($scheduleId);
+        return response()->success([]);
     }
 }

@@ -25,10 +25,19 @@ Route::group([
 Route::group([
     'prefix' => 'schedules',
     'as' => 'schedules.',
-//    'middleware' => 'auth:sanctum',
+    'middleware' => 'auth:api',
 ],function(){
     Route::get('',"ScheduleController@index")->name('index');
     Route::post('',"ScheduleController@store")->name('store');
     Route::put('{scheduleId}',"ScheduleController@update")->name('update');
     Route::delete('{scheduleId}',"ScheduleController@destroy")->name('destroy');
+});
+
+Route::group([
+    'prefix' => 'trainings',
+    'as' => 'trainings.',
+    'middleware' => 'auth:api',
+],function(){
+    Route::get('',"TrainingController@index")->name('index');
+    Route::post('',"TrainingController@store")->name('store');
 });

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $set_number
  * @property integer $actual_number
  * @property integer $set_time_sec
- * @property integer $actual_time_sec
+ * @property float $actual_time_sec
  * @property boolean $success_flag
  * @property string $training_type
  * @property string $played_at

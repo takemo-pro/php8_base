@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Enums\ApiMode;
 use App\Http\Services\Api\IScheduleService;
+use App\Http\Services\Api\ITrainingService;
 use App\Http\Services\Api\IUserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,12 +27,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(config('app.api_mode') === ApiMode::Concrete){
+        if(config('app.api_mode') === ApiMode::Concrete->value){
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Concrete\UserService::class);
             $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Concrete\ScheduleService::class);
+            $this->app->bind(ITrainingService::class,\App\Http\Services\Api\Concrete\TrainingService::class);
         }else{
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Mock\UserService::class);
             $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Mock\ScheduleService::class);
+            $this->app->bind(ITrainingService::class,\App\Http\Services\Api\Mock\TrainingService::class);
         }
     }
 }
