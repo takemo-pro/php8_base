@@ -11,18 +11,22 @@ class UserService implements IUserService
 {
     public function createUser(array $params)
     {
-        return User::query()->create([
+        /** @var User $newUser */
+        $newUser = User::query()->create([
             "id" => (string) Str::orderedUuid(),
             "name" => $params["name"],
             "icon_type" => $params["icon_type"],
             "gender" => $params["gender"] ?? Gender::Other,
             "last_synced_at" => now(),
         ]);
+        return array_merge($newUser->toArray(),[
+            'token' => $newUser->createToken('user')->plainTextToken
+        ]);
     }
 
-    public function updateUser($userId,array $params)
+    public function updateUser(array $params)
     {
-        return User::query()->findOrFail($userId)->update([
+        return auth('api')->user()->update([
             "name" => $params["name"],
             "gender" => $params["gender"] ?? Gender::Other,
             "last_synced_at" => now(),

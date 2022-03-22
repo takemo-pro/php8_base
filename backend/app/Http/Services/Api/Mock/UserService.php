@@ -5,6 +5,7 @@ namespace App\Http\Services\Api\Mock;
 use App\Enums\Gender;
 use App\Enums\IconType;
 use App\Http\Services\Api\IUserService;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserService implements IUserService
@@ -18,10 +19,11 @@ class UserService implements IUserService
             'icon_type' => IconType::Man,
             'data_transfer_token' => "",
             'last_synced_at' => now()->format('Y-m-d H:i:s'),
+            'token' => Hash::make('token'),
         ];
     }
 
-    public function updateUser($userId,array $params)
+    public function updateUser(array $params)
     {
         return [
             'id' => (string) Str::orderedUuid(),

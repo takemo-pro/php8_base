@@ -28,6 +28,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:8|string',
+            'icon_type' => 'required|integer|numeric',
             'gender' => [
                 'required',
                 'string',

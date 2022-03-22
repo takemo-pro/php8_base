@@ -21,3 +21,4 @@ Route::group([
     Route::post('',"UserController@create")->name('store');
     Route::put('{userId}',"UserController@update")->name('update');
 });
+

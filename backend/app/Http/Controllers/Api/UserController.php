@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ApiMode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Services\Api\IUserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,15 +15,20 @@ class UserController extends Controller
     public function __construct(IUserService $userService)
     {
         $this->userService = $userService;
+        if(config('app.api_mode') === ApiMode::Concrete){
+            $this->middleware('auth:api')->only('update');
+        }
     }
 
     public function create(CreateUserRequest $request)
     {
-        return $this->userService->createUser($request->validated());
+        $body = $this->userService->createUser($request->validated());
+        return response()->json($body);
     }
 
-    public function update($userId,UpdateUserRequest $request)
+    public function update(UpdateUserRequest $request)
     {
-        return $this->userService->updateUser($userId,$request->validated());
+        $body = $this->userService->updateUser($request->validated());
+        return response()->json($body);
     }
 }
