@@ -20,6 +20,8 @@ class UserService implements IUserService
             'data_transfer_token' => "",
             'last_synced_at' => now()->format('Y-m-d H:i:s'),
             'token' => Hash::make('token'),
+            'created_at' => now()->format('Y-m-d H:i:s'),
+            'updated_at' => now()->format('Y-m-d H:i:s'),
         ];
     }
 
@@ -32,6 +34,8 @@ class UserService implements IUserService
             'icon_type' => IconType::Man,
             'data_transfer_token' => "",
             'last_synced_at' => now()->format('Y-m-d H:i:s'),
+            'created_at' => now()->format('Y-m-d H:i:s'),
+            'updated_at' => now()->format('Y-m-d H:i:s'),
         ];
     }
 }
