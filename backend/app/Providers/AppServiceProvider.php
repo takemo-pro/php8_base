@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\ApiMode;
+use App\Http\Services\Api\IRankingService;
 use App\Http\Services\Api\IScheduleService;
 use App\Http\Services\Api\ITrainingService;
 use App\Http\Services\Api\IUserService;
@@ -31,10 +32,12 @@ class AppServiceProvider extends ServiceProvider
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Concrete\UserService::class);
             $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Concrete\ScheduleService::class);
             $this->app->bind(ITrainingService::class,\App\Http\Services\Api\Concrete\TrainingService::class);
+            $this->app->bind(IRankingService::class,\App\Http\Services\Api\Concrete\RankingService::class);
         }else{
             $this->app->bind(IUserService::class,\App\Http\Services\Api\Mock\UserService::class);
             $this->app->bind(IScheduleService::class,\App\Http\Services\Api\Mock\ScheduleService::class);
             $this->app->bind(ITrainingService::class,\App\Http\Services\Api\Mock\TrainingService::class);
+            $this->app->bind(IRankingService::class,\App\Http\Services\Api\Mock\RankingService::class);
         }
     }
 }

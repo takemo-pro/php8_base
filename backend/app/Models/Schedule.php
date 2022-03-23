@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property string $reserve_time
  * @property string $training_type
- * @property integer $set_number
+ * @property integer $set_count
  * @property integer $set_time_sec
  * @property TrainingMenu $trainingMenu
  * @property User $user
@@ -32,7 +32,7 @@ class Schedule extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'training_menu_id', 'created_at', 'updated_at', 'reserve_time', 'training_type', 'set_number', 'set_time_sec'];
+    protected $fillable = ['user_id', 'training_menu_id', 'created_at', 'updated_at', 'reserve_time', 'training_type', 'set_count', 'set_time_sec'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

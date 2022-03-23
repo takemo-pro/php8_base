@@ -41,3 +41,11 @@ Route::group([
     Route::get('',"TrainingController@index")->name('index');
     Route::post('',"TrainingController@store")->name('store');
 });
+
+Route::group([
+    'prefix' => 'rankings',
+    'as' => 'rankings.',
+    'middleware' => 'auth:api',
+],function(){
+    Route::get('',"RankingController@index")->name('index');
+});

@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $training_menu_id
  * @property string $created_at
  * @property string $updated_at
- * @property integer $set_number
- * @property integer $actual_number
+ * @property integer $set_count
+ * @property integer $actual_count
  * @property integer $set_time_sec
  * @property float $actual_time_sec
  * @property boolean $success_flag
@@ -35,7 +35,7 @@ class Training extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'training_menu_id', 'created_at', 'updated_at', 'set_number', 'actual_number', 'set_time_sec', 'actual_time_sec', 'success_flag', 'training_type', 'played_at'];
+    protected $fillable = ['user_id', 'training_menu_id', 'created_at', 'updated_at', 'set_count', 'actual_count', 'set_time_sec', 'actual_time_sec', 'success_flag', 'training_type', 'played_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

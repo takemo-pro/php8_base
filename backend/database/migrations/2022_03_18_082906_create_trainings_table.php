@@ -25,8 +25,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('training_menus')
                 ->cascadeOnDelete();
-            $table->integer('set_number')->comment('設定回数');
-            $table->integer('actual_number')->comment('実際にやった回数');
+            $table->integer('set_count')->comment('設定回数');
+            $table->integer('actual_count')->comment('実際にやった回数');
             $table->integer('set_time_sec')->comment('設定時間');
             $table->integer('actual_time_sec')->comment('実際にやった時間');
             $table->boolean('success_flag')->comment('成功したかどうか');

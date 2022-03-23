@@ -27,7 +27,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->dateTime('reserve_time')->comment("予約時間");
             $table->string("training_type")->comment('トレーニング種別');
-            $table->integer('set_number')->nullable()->comment('設定回数');
+            $table->integer('set_count')->nullable()->comment('設定回数');
             $table->integer('set_time_sec')->nullable()->comment('設定時間(秒)');
         });
     }
