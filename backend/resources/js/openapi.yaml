@@ -5,8 +5,10 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:11000/api/{version}"
+    description: "Development Server"
     variables:
       version:
+        description: "API Version"
         default: "v1"
         enum:
           - "v1"
