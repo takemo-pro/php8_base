@@ -24,7 +24,7 @@ class UserController extends Controller
         return response()->success($body);
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request,$userId)
     {
         $body = $this->userService->updateUser($request->validated());
         return response()->success($body);

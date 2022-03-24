@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\PrivacyPolicyLogic;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 class PrivacyPolicy extends Model
 {
     use PrivacyPolicyLogic;
+    use HasFactory;
     /**
      * The "type" of the auto-incrementing ID.
      *

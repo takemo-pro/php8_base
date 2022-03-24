@@ -18,10 +18,9 @@ class UserService implements IUserService
             'gender' => Gender::Man,
             'icon_type' => IconType::Man,
             'data_transfer_token' => "",
-            'last_synced_at' => now()->format('Y-m-d H:i:s'),
-            'token' => Hash::make('token'),
-            'created_at' => now()->format('Y-m-d H:i:s'),
-            'updated_at' => now()->format('Y-m-d H:i:s'),
+            'last_synced_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 
@@ -33,9 +32,9 @@ class UserService implements IUserService
             'gender' => Gender::Man,
             'icon_type' => IconType::Man,
             'data_transfer_token' => "",
-            'last_synced_at' => now()->format('Y-m-d H:i:s'),
-            'created_at' => now()->format('Y-m-d H:i:s'),
-            'updated_at' => now()->format('Y-m-d H:i:s'),
+            'last_synced_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

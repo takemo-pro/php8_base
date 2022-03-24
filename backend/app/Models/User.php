@@ -19,11 +19,15 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $data_transfer_token
  * @property string $icon_type
  * @property DateTime $last_synced_at
+ * @property TermsOfService $termsOfService
+ * @property PrivacyPolicy $privacyPolicy
  */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use UserLogic;
+
+    protected $keyType = "string";
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +43,17 @@ class User extends Authenticatable
         'last_synced_at',
 //        'email',
 //        'password',
+    ];
+
+    protected $visible = [
+        'id',
+        'name',
+        'gender',
+        'last_synced_at',
+        'created_at',
+        'updated_at',
+        'terms_of_service_id',
+        'privacy_policy_id',
     ];
 
     /**

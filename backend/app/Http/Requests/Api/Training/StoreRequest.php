@@ -27,17 +27,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'training_menu_id' => 'required|integer|numeric',
-            'reserve_time' => 'required|date_format:Y-m-d H:i:s|after:today',
-            'training_type' => [
-                'required',
-                new Enum(TrainingType::class),
-            ],
-            'success_flag' => "required|boolean",
-            'set_number' => "nullable|integer|numeric",
-            'actual_number' => "required|integer|numeric",
-            'set_time_sec' => "nullable|integer|numeric",
-            'actual_time_sec' => "required|numeric",
+            'trainings' => 'required|array',
+            'trainings.*.training_menu_id' => 'required|integer|numeric',
+            'trainings.*.reserve_time' => 'required|date_format:Y-m-d H:i:s|after:today',
+            'trainings.*.success_flag' => "required|boolean",
+            'trainings.*.set_count' => "nullable|integer|numeric",
+            'trainings.*.actual_count' => "required|integer|numeric",
+            'trainings.*.actual_time_ms' => "required|numeric",
         ];
     }
 }
