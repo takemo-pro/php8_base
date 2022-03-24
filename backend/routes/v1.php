@@ -3,19 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
+/**
+ * Config
+ */
 Route::get('config',"ConfigController")->name('config');
 
+/**
+ * Users
+ */
 Route::group([
     'prefix' => 'users',
     'as' => 'users.',
@@ -24,6 +19,9 @@ Route::group([
     Route::put('{userId}',"UserController@update")->name('update');
 });
 
+/**
+ * Schedules
+ */
 Route::group([
     'prefix' => 'schedules',
     'as' => 'schedules.',
@@ -35,6 +33,9 @@ Route::group([
     Route::delete('{scheduleId}',"ScheduleController@destroy")->name('destroy');
 });
 
+/**
+ * Trainings
+ */
 Route::group([
     'prefix' => 'trainings',
     'as' => 'trainings.',
@@ -44,6 +45,9 @@ Route::group([
     Route::post('',"TrainingController@store")->name('store');
 });
 
+/**
+ * Rankings
+ */
 Route::group([
     'prefix' => 'rankings',
     'as' => 'rankings.',
