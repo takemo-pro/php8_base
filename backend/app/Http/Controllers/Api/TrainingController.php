@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Schedule\StoreRequest;
-use App\Http\Requests\Api\Schedule\UpdateRequest;
-use App\Http\Services\Api\IScheduleService;
+use App\Http\Requests\Api\Training\StoreRequest;
 use App\Http\Services\Api\ITrainingService;
-use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 

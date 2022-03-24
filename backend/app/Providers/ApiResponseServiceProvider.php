@@ -61,7 +61,7 @@ class ApiResponseServiceProvider extends ServiceProvider
                 'status'	 => Response::$statusTexts[$code],
                 'data'	     => [
                     'errors' => [
-                        'global' => $message,
+                        'global' => [$message],
                     ]
                 ],
             ],$code);

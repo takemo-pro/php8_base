@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,7 +42,10 @@ class Handler extends ExceptionHandler
         //API 例外処理共通化
         $this->renderable(function(Throwable $e,Request $request){
             if(!$request->is('api/*')){
-                Log::warning('hogehogehogehogheo');
+                return;
+            }
+
+            if($e instanceof NotFoundHttpException){
                 return;
             }
 

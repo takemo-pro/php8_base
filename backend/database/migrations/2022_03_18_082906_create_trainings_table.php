@@ -27,11 +27,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->integer('set_count')->comment('設定回数');
             $table->integer('actual_count')->comment('実際にやった回数');
-            $table->integer('set_time_sec')->comment('設定時間');
-            $table->integer('actual_time_sec')->comment('実際にやった時間');
+            $table->integer('actual_time_ms')->comment('実際にかかった時間(ms)');
             $table->boolean('success_flag')->comment('成功したかどうか');
-            $table->string('training_type')->comment('トレーニング種別');
-            $table->dateTime('played_at')->comment("プレイ時刻");
         });
     }
 

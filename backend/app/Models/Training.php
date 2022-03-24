@@ -13,11 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property integer $set_count
  * @property integer $actual_count
- * @property integer $set_time_sec
- * @property float $actual_time_sec
+ * @property integer $actual_time_ms
  * @property boolean $success_flag
- * @property string $training_type
- * @property string $played_at
  * @property TrainingMenu $trainingMenu
  * @property User $user
  */
@@ -35,7 +32,28 @@ class Training extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'training_menu_id', 'created_at', 'updated_at', 'set_count', 'actual_count', 'set_time_sec', 'actual_time_sec', 'success_flag', 'training_type', 'played_at'];
+    protected $fillable = [
+        'user_id',
+        'training_menu_id',
+        'created_at',
+        'updated_at',
+        'set_count',
+        'actual_count',
+        'actual_time_ms',
+        'success_flag',
+    ];
+
+    protected $visible = [
+        'id',
+        'user_id',
+        'training_menu_id',
+        'created_at',
+        'updated_at',
+        'set_count',
+        'actual_count',
+        'actual_time_ms',
+        'success_flag',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

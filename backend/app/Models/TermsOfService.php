@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\TermsOfServiceLogic;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class TermsOfService extends Model
 {
     use TermsOfServiceLogic;
+    use HasFactory;
+
 
     /**
      * The "type" of the auto-incrementing ID.

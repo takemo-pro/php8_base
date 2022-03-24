@@ -1,0 +1,652 @@
+openapi: "3.0.2"
+info:
+  title: Fitness App Backend Api doc
+  description: "フィットネスアプリのサーバーAPI連携仕様書です"
+  version: "1.0.0"
+servers:
+  - url: "http://localhost:11000/api/{version}"
+    description: "Development Server"
+    variables:
+      version:
+        description: "API Version"
+        default: "v1"
+        enum:
+          - "v1"
+tags:
+  - name: Users
+    description: ユーザー情報
+  - name: Schedules
+    description: トレーニングスケジュール
+  - name: Config
+    description: 環境設定
+  - name: Trainings
+    description: トレーニング情報
+  - name: Rankings
+    description: ランキング情報取得
+paths:
+  /users:
+    post:
+      summary: ユーザー登録
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    $ref: '#/components/schemas/UserModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+  /users/{userId}:
+    put:
+      summary: ユーザー更新
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザーID"
+          required: true
+          example: "95e4c854-6468-482d-b546-dbc35ea2dff5"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    $ref: '#/components/schemas/UserModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+  /schedules:
+    get:
+      summary: スケジュール一覧取得
+      description: "start_dateとend_dateはどちらも指定するor指定しないでください(指定しない場合は当月のスケジュールを返却します)"
+      tags:
+        - Schedules
+      parameters:
+        - in: query
+          name: start_date
+          description: "取得開始日"
+          example: "2022-03-01"
+          required: false
+        - in: query
+          name: end_date
+          description: "取得終了日"
+          example: "2022-03-31"
+          required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+    post:
+      summary: スケジュール登録
+      tags:
+        - Schedules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleRequest'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    $ref: '#/components/schemas/ScheduleModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+  /schedules/{scheduleId}:
+    put:
+      summary: スケジュール更新
+      tags:
+        - Schedules
+      parameters:
+        - in: path
+          name: scheduleId
+          description: "更新対象スケジュールID"
+          example: "1"
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleRequest'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    $ref: '#/components/schemas/ScheduleModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+    delete:
+      summary: スケジュール削除
+      tags:
+        - Schedules
+      parameters:
+        - in: path
+          name: scheduleId
+          description: "更新対象スケジュールID"
+          example: "1"
+          required: true
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    type: object
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+  /trainings:
+    get:
+      summary: トレーニング履歴取得
+      description: "start_dateとend_dateはどちらも指定するor指定しないでください(指定しない場合は当月のトレーニング履歴を返却します)"
+      tags:
+        - Trainings
+      parameters:
+        - in: query
+          name: start_date
+          description: "取得開始日"
+          example: "2022-03-01"
+          required: false
+        - in: query
+          name: end_date
+          description: "取得終了日"
+          example: "2022-03-31"
+          required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+    post:
+      summary: トレーニング登録
+      tags:
+        - Trainings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: "トレーニング履歴を複数件配列で指定可能"
+              properties:
+                trainings:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TrainingRequest'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingModel'
+        422:
+          description: "Unprocessable Content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
+components:
+  schemas:
+    ValidationErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: "リクエスト成功フラグ"
+          example: false
+        code:
+          type: integer
+          description: "HTTPステータスコード"
+          example: 422
+        status:
+          type: string
+          description: "HTTPステータステキスト"
+          example: "Unprocessable Content"
+        data:
+          type: object
+          description: "レスポンスボディ"
+          properties:
+            errors:
+              type: object
+              description: 'エラーオブジェクト(key(エラー対象) : value(エラー内容))'
+              example:
+                 name:
+                   - "name is required."
+                   - "name must be less than 9 characters."
+                 gender:
+                   - "gender is required."
+                 field_name:
+                   - "field_name is required."
+                   - "field_name should be numeric."
+    GlobalErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: "リクエスト成功フラグ"
+          example: false
+        code:
+          type: integer
+          description: "HTTPステータスコード"
+          example: 500
+        status:
+          type: string
+          description: "HTTPステータステキスト"
+          example: "Internal Server Error"
+        data:
+          type: object
+          description: "レスポンスボディ"
+          properties:
+            errors:
+              type: object
+              description: 'エラーオブジェクト(key(エラー対象) : value(エラー内容))'
+              example:
+                global:
+                  - "An error occurred."
+    UserRequest:
+      required: true
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+          maxLength: 8
+          description: "ユーザー名"
+          example: "筋肉太郎"
+        icon_type:
+          type: integer
+          required: true
+          description: "ユーザーアイコンのタイプ(あらかじめアイコンごとに番号を振って共有しておく)"
+          example: 0
+        gender:
+          type: string
+          enum:
+            - "1"
+            - "2"
+            - "99"
+          description: "1:男性,2:女性,99:その他"
+    ScheduleRequest:
+      required: true
+      type: object
+      properties:
+        training_menu_id:
+          type: integer
+          required: true
+          description: "予約するトレーニングメニューのID"
+          example: 1
+        set_count:
+          type: integer
+          required: true
+          description: "トレーニング回数"
+          example: 30
+        reserve_time:
+          type: string
+          required: true
+          format: date-time
+          description: "予約時間"
+          example: "2022-03-24T05:07:40.000000Z"
+    TrainingRequest:
+      required: true
+      type: object
+      properties:
+        training_menu_id:
+          type: integer
+          required: true
+          description: "予約するトレーニングメニューのID"
+          example: 1
+        set_count:
+          type: integer
+          required: true
+          description: "設定回数"
+          example: 30
+        actual_count:
+          type: integer
+          required: true
+          description: "設定回数"
+          example: 30
+        actual_time_ms:
+          type: integer
+          required: true
+          description: "かかった時間"
+          example: 90000
+        success_flag:
+          type: boolean
+          required: true
+          description: "成功したかどうか"
+          example: true
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "ユーザーID(UUID)"
+          example: "95e4abba-608d-4775-b05c-41a8274271e4"
+        created_at:
+          type: string
+          description: "作成日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        updated_at:
+          type: string
+          description: "更新日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        last_synced_at:
+          type: string
+          description: "最終同期日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        name:
+          type: string
+          description: "ユーザー名"
+          example: "筋肉太郎"
+        gender:
+          type: string
+          enum:
+            - "1"
+            - "2"
+            - "99"
+          description: "1:男性,2:女性,99:その他"
+          example: "1"
+        terms_of_service_id:
+          type: integer
+          description: "最新の同意済み利用規約ID"
+        privacy_policy_id:
+          type: integer
+          description: "最新の同意済みプライバシーポリシーID"
+    ScheduleModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "スケジュールID"
+          example: 1
+        created_at:
+          type: string
+          description: "作成日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        updated_at:
+          type: string
+          description: "更新日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        user_id:
+          type: string
+          description: "スケジューリングするユーザーのID"
+          example: "95e4abba-608d-4775-b05c-41a8274271e4"
+        training_menu_id:
+          type: integer
+          description: "予約するトレーニングメニューID"
+          example: 1
+        set_count:
+          type: integer
+          description: "予約回数"
+          example: 30
+        reserve_time:
+          type: string
+          format: 'date-time'
+          description: "予約時間"
+          example: "2022-03-24T05:07:40.000000Z"
+    TrainingModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "トレーニングID"
+          example: 1
+        created_at:
+          type: string
+          description: "作成日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        updated_at:
+          type: string
+          description: "更新日時"
+          format: 'date-time'
+          example: "2022-03-24T05:07:40.000000Z"
+        user_id:
+          type: string
+          description: "トレーニングしたユーザーのID"
+          example: "95e4abba-608d-4775-b05c-41a8274271e4"
+        training_menu_id:
+          type: integer
+          description: "予約するトレーニングメニューID"
+          example: 1
+        set_count:
+          type: integer
+          description: "予約回数"
+          example: 30
+        actual_count:
+          type: integer
+          description: "実際やった回数"
+          example: 30
+        actual_time_ms:
+          type: integer
+          description: "実際にかかった時間(ms)"
+          example: 90000
+        success_flag:
+          type: boolean
+          description: "成功フラグ"
+          example: true

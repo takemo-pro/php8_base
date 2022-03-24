@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/api/doc', function () {
+    return view('swagger.index');
 });
+
+Route::get('openapi',OpenApiController::class);
