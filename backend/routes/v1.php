@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('config',"ConfigController")->name('config');
+
 Route::group([
     'prefix' => 'users',
     'as' => 'users.',

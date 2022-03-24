@@ -13,6 +13,8 @@ servers:
         enum:
           - "v1"
 tags:
+  - name: Config
+    description: 環境変数
   - name: Users
     description: ユーザー情報
   - name: Schedules
@@ -24,6 +26,61 @@ tags:
   - name: Rankings
     description: ランキング情報取得
 paths:
+  /config:
+    get:
+      summary: 環境変数取得
+      tags:
+        - Config
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: リクエスト成功フラグ
+                    example: true
+                  code:
+                    type: integer
+                    description: HTTPレスポンスコード
+                    example: 200
+                  status:
+                    type: string
+                    description: HTTPステータステキスト
+                    example: "OK"
+                  data:
+                    type: object
+                    description: 環境変数
+                    properties:
+                      voice_version:
+                        type: number
+                        format: float
+                        description: "キャラクタボイスのバージョン"
+                        example: 1.00
+                      character_image_version:
+                        type: number
+                        format: float
+                        description: "キャラクタ画像のバージョン"
+                        example: 1.00
+                      app_version:
+                        type: number
+                        format: float
+                        description: "アプリバージョン(アップデート強制用)"
+                        example: 1.00
+                      calorie_coefficient:
+                        type: number
+                        format: float
+                        description: "カロリー係数"
+                        example: 1.5
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorResponse'
   /users:
     post:
       summary: ユーザー登録

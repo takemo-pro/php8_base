@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('trainings', function (Blueprint $table) {
-            $table->float('actual_time_sec',10)->change();
+        Schema::create('config', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->json('body')->comment('設定内容');
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('trainings', function (Blueprint $table) {
-            $table->integer('actual_time_sec')->change();
-        });
+        Schema::dropIfExists('config');
     }
 };
